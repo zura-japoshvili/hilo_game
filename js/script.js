@@ -5,19 +5,16 @@ let bottomCont = $(".bottom-cont"),
     topImg = $(".top-img"),
     cardList = $(".card-lists");
 
+let cardsBtn,
+    cardsFront;
+
 let gameActive = false;
 
-let cardsBtn;
 
-
-// za.click(function () { 
-//     console.log(za[0]);
-//     $(za[0]).css("transform", "rotateY(180deg)");
-// });
 
 
 function cardClickHandler(clickedIndex){
-    console.log(clickedIndex);
+    $(cardsBtn[clickedIndex]).css("transform", "rotateY(180deg)");
 }
 
 function generateCards() {
@@ -57,7 +54,9 @@ function generateCards() {
             <p>Win. <span>1.12$</span>$</p>
         </div>
     </div`);
-
+    
+    cardsFront = $(".cards-front img");
+    console.log(cardsFront);
     cardsBtn = $(".cards-btn");
     cardsBtn.each(function (indexInArray, valueOfElement) { 
         $(valueOfElement).click(function () {
@@ -70,6 +69,7 @@ function generateCards() {
 betBtn.click(startFunc);
 function startFunc(){
     if(!gameActive){
+        getImgData(3);
         topCont.css("top", "40px");
         topImg.css({"width": "100px", "height": "160px"});
         cardList.css({"width": "80px", "height": "120px"});
@@ -81,3 +81,24 @@ function startFunc(){
     
 }
 
+function getImgData (num) {
+    $.getJSON("./js/img-data.json",
+        function (data, textStatus, jqXHR) {
+            const maxImgs = data.imgs.length;
+            console.log(num);
+            if(num === 1){
+                const rand = Math.floor(Math.random() * maxImgs);
+                topImg.attr("src", data.imgs[rand]);
+            }else{
+                console.log(true)
+                for(let i = 0; i < num;i++){
+                    console.log(i);
+                    const rand = Math.floor(Math.random() * maxImgs);
+                    console.log(cardsFront)
+                    // $(cardsFront[i]).attr("src", );
+                }
+            }
+        }
+    );
+}
+$( window ).on('load', getImgData(1));

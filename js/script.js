@@ -6,57 +6,18 @@ let bottomCont = $(".bottom-cont"),
     cardList = $(".card-lists");
 
 let cardsBtn,
-    cardsFront;
+    cardsFront = $(".cards-front img");
 
 let gameActive = false;
 
 
-
-
 function cardClickHandler(clickedIndex){
+    getImgData(3);
     $(cardsBtn[clickedIndex]).css("transform", "rotateY(180deg)");
 }
 
 function generateCards() {
-    bottomCont.html(`<div class="cards">
-        <button class="cards-btn">
-            <div class="cards-front">
-                <img>
-            </div>
-            <div class="cards-back">
-                <img src="images/card-back.png" alt="">
-            </div>
-        </button>
-        <button class="cards-btn">
-            <div class="cards-front">
-                <img>
-            </div>
-            <div class="cards-back">
-                <img src="images/card-back.png" alt="">
-            </div>
-        </button>
-        <button class="cards-btn">
-            <div class="cards-front">
-                <img>
-            </div>
-            <div class="cards-back">
-                <img src="images/card-back.png" alt="">
-            </div>
-        </button>
-    </div>
-    <div class="checker-cont">
-        <div class="up-cont">
-            <button>LOW OR SAME</button>
-            <p>Win. <span>1.12$</span>$</p>
-        </div>
-        <div class="down-cont">
-            <button>HIGH OR SAME</button>
-            <p>Win. <span>1.12$</span>$</p>
-        </div>
-    </div`);
-    
-    cardsFront = $(".cards-front img");
-    console.log(cardsFront);
+    bottomCont.css("display" ,"flex");
     cardsBtn = $(".cards-btn");
     cardsBtn.each(function (indexInArray, valueOfElement) { 
         $(valueOfElement).click(function () {
@@ -92,10 +53,8 @@ function getImgData (num) {
             }else{
                 console.log(true)
                 for(let i = 0; i < num;i++){
-                    console.log(i);
                     const rand = Math.floor(Math.random() * maxImgs);
-                    console.log(cardsFront)
-                    // $(cardsFront[i]).attr("src", );
+                    $(cardsFront[i]).attr("src", data.imgs[rand]);
                 }
             }
         }

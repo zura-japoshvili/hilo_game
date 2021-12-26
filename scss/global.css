@@ -37,6 +37,206 @@ body .cards-cont {
   border-radius: 10px;
   width: 600px;
   height: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  position: relative;
+}
+
+body .cards-cont .top-cont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 30%;
+}
+
+body .cards-cont .top-cont .top-img {
+  width: 100px;
+  height: 150px;
+}
+
+body .cards-cont .top-cont .card-lists {
+  width: 80px;
+  height: 120px;
+  margin-left: 20px;
+  border: 4px solid #fff;
+  padding: 1px;
+  border-radius: 8px;
+}
+
+body .cards-cont .bottom-cont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  width: 100%;
+  height: 50%;
+}
+
+body .cards-cont .bottom-cont .cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+body .cards-cont .bottom-cont .cards .cards-btn {
+  position: relative;
+  border-radius: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: -webkit-transform 0.6s;
+  transition: -webkit-transform 0.6s;
+  transition: transform 0.6s;
+  transition: transform 0.6s, -webkit-transform 0.6s;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  cursor: pointer;
+  border: none;
+  width: 110px;
+  height: 160px;
+}
+
+body .cards-cont .bottom-cont .cards .cards-btn div {
+  border-radius: 8px;
+  width: 120px;
+  height: 160px;
+  -webkit-transition-delay: 0.5s;
+          transition-delay: 0.5s;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+body .cards-cont .bottom-cont .cards .cards-btn div img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  -webkit-filter: grayscale(60%);
+          filter: grayscale(60%);
+}
+
+body .cards-cont .bottom-cont .cards .cards-btn .cards-front {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  width: 100%;
+  height: 100%;
+  -webkit-transition: -webkit-transform 0.1s;
+  transition: -webkit-transform 0.1s;
+  transition: transform 0.1s;
+  transition: transform 0.1s, -webkit-transform 0.1s;
+}
+
+body .cards-cont .bottom-cont .checker-cont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body .cards-cont .bottom-cont .checker-cont div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 10px;
+}
+
+body .cards-cont .bottom-cont .checker-cont div button {
+  width: 140px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  z-index: 2;
+}
+
+body .cards-cont .bottom-cont .checker-cont div p {
+  margin-top: -10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 140px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.493);
+  border-radius: 0 0 10px 10px;
+  z-index: 1;
+}
+
+body .cards-cont .bottom-cont .checker-cont .up-cont button {
+  background: #de9709;
+  background: -webkit-gradient(linear, left top, right top, from(#de9709), color-stop(50%, #e64c10));
+  background: linear-gradient(90deg, #de9709 0%, #e64c10 50%);
+}
+
+body .cards-cont .bottom-cont .checker-cont .down-cont button {
+  background: #13f2c3;
+  background: -webkit-gradient(linear, left top, right top, from(#13f2c3), color-stop(82%, #1393f2));
+  background: linear-gradient(90deg, #13f2c3 0%, #1393f2 82%);
 }
 
 body .control {

@@ -4,14 +4,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hilo</title>
+    <title>HILO</title>
     <!-- This is fontawesome link (for icons)  -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <!-- SCSS LINK -->
     <link rel="stylesheet" href="scss/global.css">
 </head>
 <body>
-    <div class="cards-cont"></div>
+    <div class="cards-cont">
+        <div class="top-cont">
+            <img class="top-img" src="images/jack.png" alt="">
+            <img class="card-lists" src="images/card-back.png" alt="">
+        </div>
+        <div class="bottom-cont">
+            <div class="cards">
+                <button class="cards-btn">
+                    <div class="cards-back">
+                        <img src="images/card-back.png" alt="">
+                    </div>
+                    <div class="cards-front">
+                        <img src="images/queen.png">
+                    </div>
+                </button>
+                <button class="cards-btn">
+                    <div class="cards-front">
+                        <img>
+                    </div>
+                    <div class="cards-back">
+                        <img src="images/card-back.png" alt="">
+                    </div>
+                </button>
+                <button class="cards-btn">
+                    <div class="cards-front">
+                        <img>
+                    </div>
+                    <div class="cards-back">
+                        <img src="images/card-back.png" alt="">
+                    </div>
+                </button>
+            </div>
+            <div class="checker-cont">
+                <div class="up-cont">
+                    <button>LOW OR SAME</button>
+                    <p>Win. <span>1.12$</span>$</p>
+                </div>
+                <div class="down-cont">
+                    <button>HIGH OR SAME</button>
+                    <p>Win. <span>1.12$</span>$</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="control">
         <div class="input-cont">
             <div class="left-box-input">

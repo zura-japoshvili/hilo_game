@@ -41,19 +41,28 @@ function cardClickHandler(clickedIndex){
     getImgData(3);
 
     $.each(cardsBtn, function(index, value) {
-        $(value).css({"transform": "rotateY(-180deg)"});
+        $(value).css({"transform": "rotateY(180deg)"});
     })
     $(cardsBtn[clickedIndex]).css({"width": "120px", "height": "180px","box-shadow": "0px 0px 41px 3px rgba(39,158,37,0.75)"});
 
     const topImgNum = parseInt($(topImg).attr("src").split('/').pop());
     const selectedCard = parseInt($(cardsFront[clickedIndex]).attr("src").split('/').pop());
 
+    if(choice === 'down'){
+        if(selectedCard <= topImgNum){
+            console.log('Win');
+        }else{
+            console.log("Loss")
+        }
+    }
+    if(choice === 'up'){
+        if(selectedCard >= topImgNum){
+            console.log('Win');
+        }else{
+            console.log("Loss")
+        }
+    }
 
-    // if(topImgNum > selectedCard){
-    //     console.log('Win');
-    // }else{
-    //     console.log("Loss")
-    // }
 }
 
 function generateCards() {
@@ -69,7 +78,7 @@ function choiceFunc (value){
     $(topImgIcon).css("display", "block");
 
     $.each(cardsBtn, function(index) {
-        $(cardsBtn[index]).css("filter", "grayscale(0%)");
+        $(cardsBtn[index]).css("filter", "none");
         $(cardsBtn[index]).removeAttr('disabled');
     })
     if(value === "down"){
@@ -83,6 +92,7 @@ function choiceFunc (value){
 }
 downBtn.click(() =>{ choiceFunc('down') });
 upBtn.click(() => { choiceFunc('up') });
+
 
 betBtn.click(startFunc);
 function startFunc(){

@@ -40,6 +40,7 @@ $( window ).on('load', getImgData(1));
 function cardClickHandler(clickedIndex){
     getImgData(3);
 
+
     $.each(cardsBtn, function(index, value) {
         $(value).css({"transform": "rotateY(180deg)"});
     })
@@ -50,19 +51,51 @@ function cardClickHandler(clickedIndex){
 
     if(choice === 'down'){
         if(selectedCard <= topImgNum){
-            console.log('Win');
+            setTimeout(choiceIsCorrect, 1500);
         }else{
-            console.log("Loss")
+            whenLossGame(clickedIndex)
         }
     }
     if(choice === 'up'){
         if(selectedCard >= topImgNum){
-            console.log('Win');
+            setTimeout(choiceIsCorrect, 1500);
         }else{
-            console.log("Loss")
+            whenLossGame(clickedIndex)
         }
     }
 
+}
+
+function choiceIsCorrect (index) {
+    $(cardsBtn[index]).css({"width": "100px", "height": "160px","box-shadow": ""});
+    betBtn.text('CASHOUT');
+    betBtn.css("background-color", "#1396F2");
+
+    $.each(cardsBtn, function(index, value) {
+        $(value).css({"transform": "rotateY(0deg)"});
+        $(value).attr('disabled', true);
+        $(cardsFront[index]).attr("src", "");
+    });
+
+}
+
+function whenLossGame(index){
+    $(cardsBtn[index]).css({"width": "100px", "height": "160px","box-shadow": ""});
+    $.each(cardsBtn, function(index, value) {
+        $(value).css({"transform": "rotateY(0deg)"});
+        $(value).attr('disabled', true);
+        $(cardsFront[index]).attr("src", "");
+    });
+
+    $(topImgIcon).css("display", "none");
+
+    topImg.css({"width": "100px", "height": "160px"});
+    cardList.css({"width": "80px", "height": "120px"});
+    topCont.css({"position": "absolute", "top": "40%"});
+    bottomCont.css("display" ,"none");
+
+    gameActive = false;
+    choice = ''
 }
 
 function generateCards() {

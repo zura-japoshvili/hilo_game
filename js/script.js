@@ -18,7 +18,17 @@ function cardClickHandler(clickedIndex){
         $(value).css({"transform": "rotateY(180deg)"});
         $(cardsBtnImg[index]).css("filter", "grayscale(0%)");
     })
-    $(cardsBtn[clickedIndex]).css({"width": "120px", "height": "180px","box-shadow": "0px 0px 21px 0px rgba(39,158,37,0.75)"});
+    $(cardsBtn[clickedIndex]).css({"width": "120px", "height": "180px","box-shadow": "0px 0px 41px 3px rgba(39,158,37,0.75)"});
+
+    const topImgNum = parseInt($(topImg).attr("src").split('/').pop());
+    const selectedCard = parseInt($(cardsFront[clickedIndex]).attr("src").split('/').pop());
+
+
+    if(topImgNum > selectedCard){
+        console.log('Win');
+    }else{
+        console.log("Loss")
+    }
 }
 
 function generateCards() {

@@ -12,6 +12,10 @@ let cardsBtn = $(".cards-btn"),
 let downBtn = $(".down-cont button"),
     upBtn = $(".up-cont button");
 
+let downWinAmount = $(".down-cont p span"),
+    upWinAmount = $(".up-cont p span");
+
+let inputAmount;
 
 let gameActive = false;
 let clickedIndex;
@@ -50,7 +54,8 @@ function makeSound (value) {
 function cardClickHandler(index){
     getImgData(3);  
     clickedIndex = index;
-    
+
+    makeSound(flipSound);
     setTimeout(() => {
         $.each(cardsBtn, function(index, value) {
             $(value).css({"transform": "rotateY(180deg)"});
@@ -91,6 +96,9 @@ function choiceIsCorrect () {
         $(value).css({"transform": "rotateY(0deg)"});
         $(value).attr('disabled', true);
     });
+    $(topImgIcon).css("display", "none");
+    choice = '';
+
     getImgData(1);
     gameActive = true;
     clickedIndex = '';
@@ -152,8 +160,10 @@ upBtn.click(() => { choiceFunc('up') });
 
 betBtn.click(startFunc);
 function startFunc(){
-    console.log(gameActive);
     if(!gameActive){
+        inputAmount = parseFloat($(".left-box-input input").val());
+        console.log(inputAmount);
+        getImgData(1);
         topCont.css("top", "40px");
         topImg.css({"width": "100px", "height": "160px"});
         cardList.css({"width": "80px", "height": "120px"});

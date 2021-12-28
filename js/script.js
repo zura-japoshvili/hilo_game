@@ -48,34 +48,38 @@ function makeSound (value) {
 }
 
 function cardClickHandler(index){
-    getImgData(3);
-    
+    getImgData(3);  
     clickedIndex = index;
-
-    $.each(cardsBtn, function(index, value) {
-        $(value).css({"transform": "rotateY(180deg)"});
-    })
-    $(cardsBtn[clickedIndex]).css({"width": "120px", "height": "180px","box-shadow": "0px 0px 41px 3px rgba(39,158,37,0.75)"});
-
-    const topImgNum = parseInt($(topImg).attr("src").split('/').pop());
-    const selectedCard = parseInt($(cardsFront[clickedIndex]).attr("src").split('/').pop());
-
-    console.log(choice, topImgNum, selectedCard, index);
-    if(choice === 'down'){
-        if(selectedCard <= topImgNum){
-            setTimeout(choiceIsCorrect, 1500);
-        }else{
-            setTimeout(whenLossGame, 1500);
+    
+    setTimeout(() => {
+        $.each(cardsBtn, function(index, value) {
+            $(value).css({"transform": "rotateY(180deg)"});
+        })
+        $(cardsBtn[clickedIndex]).css({"width": "120px", "height": "180px","box-shadow": "0px 0px 41px 3px rgba(39,158,37,0.75)"});
+    
+        const topImgNum = parseInt($(topImg).attr("src").split('/').pop());
+        const selectedCard = parseInt($(cardsFront[clickedIndex]).attr("src").split('/').pop());
+    
+        console.log($(cardsFront[clickedIndex]).attr("src"));
+        console.log(choice, topImgNum, selectedCard, index);
+    
+        if(choice === 'down'){
+            if(selectedCard <= topImgNum){
+                setTimeout(choiceIsCorrect, 1500);
+            }else{
+                makeSound(loseSound);
+                setTimeout(restartGame, 1500);
+            }
         }
-    }
-    if(choice === 'up'){
-        if(selectedCard >= topImgNum){
-            setTimeout(choiceIsCorrect, 1500);
-        }else{
-            setTimeout(whenLossGame, 1500);
+        if(choice === 'up'){
+            if(selectedCard >= topImgNum){
+                setTimeout(choiceIsCorrect, 1500);
+            }else{
+                makeSound(loseSound);
+                setTimeout(restartGame, 1500);
+            }
         }
-    }
-
+    }, 100);
 }
 
 function choiceIsCorrect () {
@@ -86,15 +90,13 @@ function choiceIsCorrect () {
     $.each(cardsBtn, function(index, value) {
         $(value).css({"transform": "rotateY(0deg)"});
         $(value).attr('disabled', true);
-        $(cardsFront[index]).attr("src", "");
     });
-
     getImgData(1);
+    gameActive = true;
     clickedIndex = '';
 }
 
-function whenLossGame(){
-    makeSound(loseSound);
+function restartGame(){
     betBtn.text('BET');
     betBtn.css("background-color", "#7CC90D");
 
@@ -150,8 +152,8 @@ upBtn.click(() => { choiceFunc('up') });
 
 betBtn.click(startFunc);
 function startFunc(){
+    console.log(gameActive);
     if(!gameActive){
-        getImgData(3);
         topCont.css("top", "40px");
         topImg.css({"width": "100px", "height": "160px"});
         cardList.css({"width": "80px", "height": "120px"});
@@ -160,7 +162,9 @@ function startFunc(){
             topCont.css("position", "static");
             setTimeout(generateCards, 50);
         }, 400);
-        gameActive = true;  
     }
-    
+    if(gameActive){
+        makeSound(winSound);
+        restartGame();
+    }
 }

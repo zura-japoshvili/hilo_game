@@ -15,7 +15,11 @@ let downBtn = $(".down-cont button"),
 let downWinAmount = $(".down-cont p span"),
     upWinAmount = $(".up-cont p span");
 
-let inputAmount;
+let inputAmount,
+    currentAmount;
+
+let downPercent,
+    upPercent;
 
 let gameActive = false;
 let clickedIndex;
@@ -51,6 +55,20 @@ function makeSound (value) {
     audio.play();
 }
 
+function winPercentFunc(){
+    let upCounter = 100;
+    let downCounter = 100;
+    const topImgNum = parseInt($(topImg).attr("src").split('/').pop());
+    for(let i = topImgNum; i > 4; i--){
+        downCounter -= 10;
+    }
+    for(let i = topImgNum; i<13; i++){
+        upCounter -= 10;
+    }
+    downWinAmount.text((currentAmount + ((currentAmount * downCounter) / 100)).toFixed(2));
+    upWinAmount.text((currentAmount + ((currentAmount * upCounter) / 100)).toFixed(2));
+}
+
 function cardClickHandler(index){
     getImgData(3);  
     clickedIndex = index;
@@ -65,11 +83,9 @@ function cardClickHandler(index){
         const topImgNum = parseInt($(topImg).attr("src").split('/').pop());
         const selectedCard = parseInt($(cardsFront[clickedIndex]).attr("src").split('/').pop());
     
-        console.log($(cardsFront[clickedIndex]).attr("src"));
-        console.log(choice, topImgNum, selectedCard, index);
-    
         if(choice === 'down'){
             if(selectedCard <= topImgNum){
+                currentAmount = parseFloat(downWinAmount.text());
                 setTimeout(choiceIsCorrect, 1500);
             }else{
                 makeSound(loseSound);
@@ -78,6 +94,7 @@ function cardClickHandler(index){
         }
         if(choice === 'up'){
             if(selectedCard >= topImgNum){
+                currentAmount = parseFloat(upWinAmount.text());
                 setTimeout(choiceIsCorrect, 1500);
             }else{
                 makeSound(loseSound);
@@ -89,7 +106,7 @@ function cardClickHandler(index){
 
 function choiceIsCorrect () {
     $(cardsBtn[clickedIndex]).css({"width": "100px", "height": "160px","box-shadow": ""});
-    betBtn.text('CASHOUT');
+    betBtn.text('CASHOUT' + " " + currentAmount);
     betBtn.css("background-color", "#1396F2");
 
     $.each(cardsBtn, function(index, value) {
@@ -102,6 +119,7 @@ function choiceIsCorrect () {
     getImgData(1);
     gameActive = true;
     clickedIndex = '';
+    winPercentFunc()
 }
 
 function restartGame(){
@@ -162,7 +180,7 @@ betBtn.click(startFunc);
 function startFunc(){
     if(!gameActive){
         inputAmount = parseFloat($(".left-box-input input").val());
-        console.log(inputAmount);
+        currentAmount = inputAmount;
         getImgData(1);
         topCont.css("top", "40px");
         topImg.css({"width": "100px", "height": "160px"});
@@ -170,6 +188,7 @@ function startFunc(){
         makeSound(clickSound);
         setTimeout(() =>{
             topCont.css("position", "static");
+            winPercentFunc()
             setTimeout(generateCards, 50);
         }, 400);
     }

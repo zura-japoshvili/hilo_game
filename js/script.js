@@ -14,8 +14,13 @@ let downBtn = $(".down-cont button"),
 
 
 let gameActive = false;
+let clickedIndex;
 let choice;
 
+const clickSound = 'audio/click.wav',
+    flipSound = 'audio/flip.wav',
+    loseSound = 'audio/losing.wav',
+    winSound = 'audio/win.wav';
 
 function getImgData (num) {
     $.getJSON("./js/img-data.json",
@@ -36,10 +41,16 @@ function getImgData (num) {
 }
 $( window ).on('load', getImgData(1));
 
+function makeSound (value) {
+    let audio = new Audio(value);
+    audio.currentTime = 0;
+    audio.play();
+}
 
-function cardClickHandler(clickedIndex){
+function cardClickHandler(index){
     getImgData(3);
-
+    
+    clickedIndex = index;
 
     $.each(cardsBtn, function(index, value) {
         $(value).css({"transform": "rotateY(180deg)"});
@@ -49,25 +60,26 @@ function cardClickHandler(clickedIndex){
     const topImgNum = parseInt($(topImg).attr("src").split('/').pop());
     const selectedCard = parseInt($(cardsFront[clickedIndex]).attr("src").split('/').pop());
 
+    console.log(choice, topImgNum, selectedCard, index);
     if(choice === 'down'){
         if(selectedCard <= topImgNum){
             setTimeout(choiceIsCorrect, 1500);
         }else{
-            whenLossGame(clickedIndex)
+            setTimeout(whenLossGame, 1500);
         }
     }
     if(choice === 'up'){
         if(selectedCard >= topImgNum){
             setTimeout(choiceIsCorrect, 1500);
         }else{
-            whenLossGame(clickedIndex)
+            setTimeout(whenLossGame, 1500);
         }
     }
 
 }
 
-function choiceIsCorrect (index) {
-    $(cardsBtn[index]).css({"width": "100px", "height": "160px","box-shadow": ""});
+function choiceIsCorrect () {
+    $(cardsBtn[clickedIndex]).css({"width": "100px", "height": "160px","box-shadow": ""});
     betBtn.text('CASHOUT');
     betBtn.css("background-color", "#1396F2");
 
@@ -77,10 +89,16 @@ function choiceIsCorrect (index) {
         $(cardsFront[index]).attr("src", "");
     });
 
+    getImgData(1);
+    clickedIndex = '';
 }
 
-function whenLossGame(index){
-    $(cardsBtn[index]).css({"width": "100px", "height": "160px","box-shadow": ""});
+function whenLossGame(){
+    makeSound(loseSound);
+    betBtn.text('BET');
+    betBtn.css("background-color", "#7CC90D");
+
+    $(cardsBtn[clickedIndex]).css({"width": "100px", "height": "160px","box-shadow": ""});
     $.each(cardsBtn, function(index, value) {
         $(value).css({"transform": "rotateY(0deg)"});
         $(value).attr('disabled', true);
@@ -95,8 +113,11 @@ function whenLossGame(index){
     bottomCont.css("display" ,"none");
 
     gameActive = false;
+    clickedIndex = '';
     choice = ''
 }
+
+
 
 function generateCards() {
     bottomCont.css("display" ,"flex");
@@ -134,6 +155,7 @@ function startFunc(){
         topCont.css("top", "40px");
         topImg.css({"width": "100px", "height": "160px"});
         cardList.css({"width": "80px", "height": "120px"});
+        makeSound(clickSound);
         setTimeout(() =>{
             topCont.css("position", "static");
             setTimeout(generateCards, 50);
